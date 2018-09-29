@@ -33,18 +33,20 @@
 				<!-- Current Tables in Use -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">Current Reservations</h4>
+						<h1 class="panel-title">Current Reservations</h1>
 					</div>
 					<div class="panel-body" id="tableSection">
+
 					</div>
 				</div>
 
 				<!-- Waiting List Panel -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">Waiting List</h4>
+						<h1 class="panel-title">Waiting List</h1>
 					</div>
 					<div class="panel-body" id="waitlistSection">
+
 					</div>
 				</div>
 			</div>
@@ -53,11 +55,35 @@
 
 	    <footer class="footer">
 	      <div class="container">
-	      	<p>Control Panel</p>
-	        <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+	        <p><a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
 	      </div>
 	    </footer>
 
 	</div>
+
+<script type='text/javascript'>
+var resDiv = $('<div></div>');
+var waitDiv = $('<div></div>');
+
+$.get("/api/tables", function(data){
+    for(var i = 0; i<data.length; i++){
+        resDiv.append("<h3>Name: " + data[i].customerName + "</h3>");
+        resDiv.append("<h3>Number: " + data[i].phoneNumber + "</h3>");
+        resDiv.append("<h3>E-mail: " + data[i].customerEmail + "</h3>");
+		resDiv.append("<h3>ID: " + data[i].customerID + "</h3>");
+        $("#tableSection").append(resDiv);
+    }
+});
+
+$.get("/api/waitlist", function(data){
+    for(var i = 0; i<data.length; i++){
+        waitDiv.append("<h3>Name: " + data[i].customerName + "</h3>");
+        waitDiv.append("<h3>Number: " + data[i].phoneNumber + "</h3>");
+        waitDiv.append("<h3>E-mail: " + data[i].customerEmail + "</h3>");
+		waitDiv.append("<h3>ID: " + data[i].customerID +"</h3>");
+		$("#waitlistSection").append(waitDiv);
+	}
+});
+</script>
 
 </body>
