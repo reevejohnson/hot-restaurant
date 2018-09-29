@@ -14,8 +14,23 @@ app.use(express.json());
 
 // Reservations (DATA)
 // =============================================================
-var reservations = [];
-var waitlist = [];
+var reservations = [
+    {
+      'customerName': 'Reeve',
+      'customerEmail': 'me@me.com',
+      'phoneNumber': '2',
+      'customerID': 'reeve'
+    }
+];
+
+var waitlist = [
+    {
+      'customerName': 'Brittany',
+      'customerEmail': 'me@me.com',
+      'phoneNumber': '1',
+      'customerID': 'brittany'
+    }
+];
 
 // Routes
 // =============================================================
@@ -31,6 +46,14 @@ app.get("/tables", function(req, res) {
 
 app.get("/reserve", function(req, res) {
     res.sendFile(path.join(__dirname, "reserve.html"));
+});
+
+app.get("/api/tables", function(req, res) {
+    return res.json(reservations);
+});
+
+app.get("/api/waitlist", function(req, res) {
+    return res.json(waitlist);
 });
 
 // NEED ON-CLICK EVENT
