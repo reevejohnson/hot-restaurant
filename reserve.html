@@ -86,19 +86,23 @@
 			customerID: $("#reserve_uniqueID").val().trim()
 		  };
 
-		  if(reservations.length < 5) {
-			$.post("/api/tables", newReservation)
-			  .then(function(data) {
-				  console.log('reserve.html', data);
-				  alert('Adding reservation to reservation list...');
-			  })
-		  } else {
-			$.post("/api/waitlist", newReservation)
-			  .then(function(data) {
-				  console.log('reserve.html', data);
-				  alert('Adding reservation to waitlist...');
-			  });
-	      }
+		  var reslength;
+		  $.get('/api/tables', function(data) {
+			  reslength = data.length;
+		  });
+
+		  var currentURL = window.location.origin;
+
+		  $.post(currentURL + '/api/tables', newReservation, function(data) {
+			  if(reslength >= 5) {
+				  alert('You have been added to the waitlist.');
+			  } else {
+				  reslength++;
+				  alert('A table has been reserved for you.');
+			  }
+		  });
+
+		  $(this).closest('form').find('input[type=text]').val('');
 		});
 	</script>
 
