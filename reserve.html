@@ -76,5 +76,31 @@
 
 	</div>
 
+	<script type="text/javascript">
+		$(".submit").on("click", function(event) {
+		  event.preventDefault();
+		  var newReservation = {
+			customerName: $("#reserve_name").val().trim(),
+			customerEmail: $("#reserve_email").val().trim(),
+			phoneNumber: $("#reserve_phone").val().trim(),
+			customerID: $("#reserve_uniqueID").val().trim()
+		  };
+
+		  if(reservations.length < 5) {
+			$.post("/api/tables", newReservation)
+			  .then(function(data) {
+				  console.log('reserve.html', data);
+				  alert('Adding reservation to reservation list...');
+			  })
+		  } else {
+			$.post("/api/waitlist", newReservation)
+			  .then(function(data) {
+				  console.log('reserve.html', data);
+				  alert('Adding reservation to waitlist...');
+			  });
+	      }
+		});
+	</script>
+
 </body>
 </html>

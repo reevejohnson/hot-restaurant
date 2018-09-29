@@ -56,8 +56,7 @@ app.get("/api/waitlist", function(req, res) {
     return res.json(waitlist);
 });
 
-// NEED ON-CLICK EVENT
-if(reservations.length < 5) {
+
     app.post("/api/tables", function(req, res) {
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
@@ -69,7 +68,7 @@ if(reservations.length < 5) {
       
         res.json(newreservation);
     });
-} else {
+
     app.post("/api/waitlist", function(req, res) {
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
@@ -81,7 +80,7 @@ if(reservations.length < 5) {
       
         res.json(newreservation);
     });
-}
+
 
 // Starts the server to begin listening
 // =============================================================
